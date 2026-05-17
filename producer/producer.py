@@ -41,7 +41,7 @@ def parse_row(row: dict) -> dict | None:
 
     message = {"timestamp": timestamp}
     for csv_col, json_key in FIELD_MAP.items():
-        val = row.get(csv_col, "").strip()
+        val = (row.get(csv_col) or "").strip()
         if csv_col == "Temp (°C)" and val == "":
             return None
         try:

@@ -2,7 +2,7 @@ import os
 import json
 import faust
 import joblib
-import numpy as np
+import pandas as pd
 
 KAFKA_BROKER = os.environ.get("KAFKA_BROKER", "kafka:9092")
 MODEL_PATH = os.environ.get("MODEL_PATH", "/app/model/model.pkl")
@@ -68,8 +68,8 @@ async def predict(stream):
             "temp_lag_3": lag_3,
         }
 
-        feature_array = np.array([[features[col] for col in FEATURE_ORDER]])
-        predicted = float(model.predict(feature_array)[0])
+        feature_df = pd.DataFrame([features], columns=FEATURE_ORDER)
+        predicted = float(model.predict(feature_df)[0])
 
         result = {
             "timestamp": data.get("timestamp", ""),
@@ -87,3 +87,7 @@ async def predict(stream):
             f"Current: {temp_c}°C → Predicted: {predicted:.1f}°C "
             f"({sign}{delta:.1f}°C)"
         )
+
+
+if __name__ == "__main__":
+    app.main()

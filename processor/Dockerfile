@@ -7,4 +7,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY processor.py .
 
-CMD ["faust", "-A", "processor", "worker", "-l", "info"]
+CMD ["python", "-u", "processor.py", "worker", "-l", "info"]
