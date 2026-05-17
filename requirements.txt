@@ -1,0 +1,5 @@
+pandas==2.2.2
+scikit-learn==1.5.1
+joblib==1.4.2
+kafka-python==2.0.2
+faust-streaming==0.11.0
